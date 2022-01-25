@@ -24,18 +24,18 @@ except AttributeError:
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-ext_modules = [
+ext_modules = cythonize([
     Extension(
         name='cython_bbox',
         sources=['src/cython_bbox.pyx'],
-        extra_compile_args = {'gcc': ['/Qstd=c99']},
+        extra_compile_args = ['-O3', '-g0'],
         include_dirs=[numpy_include]
     )
-]
+])
 
 setup(
     name='cython_bbox',
-    ext_modules=cythonize(ext_modules),
+    ext_modules=ext_modules,
     version = '0.1.3',
     description = 'Standalone cython_bbox',
     long_description=long_description,
@@ -43,6 +43,7 @@ setup(
     author = 'Samson Wang',
     author_email = 'samson.c.wang@gmail.com',
     url = 'https://github.com/samson-wang/cython_bbox.git', 
-    keywords = ['cython_bbox']
+    keywords = ['cython_bbox'],
+    install_requires=['numpy']
 )
 
